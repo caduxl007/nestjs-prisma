@@ -11,17 +11,15 @@ generator client {
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
+  id    String  @unique @default(uuid()) @db.Uuid
   email String  @unique
-  name  String?
+  name  String
   posts Post[]
 }
 
 model Post {
-  id        Int      @default(autoincrement()) @id
+  id        String   @unique @default(uuid()) @db.Uuid
   title     String
-  content   String?
-  published Boolean? @default(false)
   author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+  authorId  String?  @db.Uuid
 }
